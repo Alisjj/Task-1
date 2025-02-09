@@ -1,40 +1,71 @@
-### Eglobal
+# Setting Up a Basic Frappe Application from Scratch on macOS
 
-Job task
+This guide details the step-by-step process of installing and setting up a basic Frappe application on macOS.
 
-### Installation
+## Prerequisites
 
-You can install this app using the [bench](https://github.com/frappe/bench) CLI:
+Ensure that your system meets the following requirements:
 
-```bash
-cd $PATH_TO_YOUR_BENCH
-bench get-app $URL_OF_THIS_REPO --branch develop
-bench install-app eglobal
+- **OS**: macOS (Monterey or later recommended)
+- **Python**: 3.10+
+- **Node.js**: 18+
+- **Redis**: 6+
+- **MariaDB**: 10.6+
+- **Yarn**
+- **pip** and **virtualenv**
+
+## Step 1: Install Dependencies
+
+```sh
+brew update && brew upgrade
+brew install python@3.10 node@18 redis mariadb yarn
 ```
 
-### Contributing
+## Step 2: Make sure MariaDB is running
 
-This app uses `pre-commit` for code formatting and linting. Please [install pre-commit](https://pre-commit.com/#installation) and enable it for this repository:
-
-```bash
-cd apps/eglobal
-pre-commit install
+```sh
+brew services start mariadb
 ```
 
-Pre-commit is configured to use the following tools for checking and formatting your code:
+## Step 3: Set Up Frappe Bench
 
-- ruff
-- eslint
-- prettier
-- pyupgrade
-### CI
+Depending on your OS version and python/pip version, you may get an error here regarding an externally-managed-environment
+You can work around this for now by running
 
-This app can use GitHub Actions for CI. The following workflows are configured:
+```sh
+pip3 install frappe-bench --break-system-packages
+bench init taskapp
+cd taskapp
+```
 
-- CI: Installs this app and runs unit tests on every push to `develop` branch.
-- Linters: Runs [Frappe Semgrep Rules](https://github.com/frappe/semgrep-rules) and [pip-audit](https://pypi.org/project/pip-audit/) on every pull request.
+## Step 4: Create a custom Frappe App
 
+```sh
+bench new-app eglobal
+```
 
-### License
+## Step 5: Create a New Frappe Site
 
-mit
+```sh
+bench new-site etask.localhost --admin-password admin
+```
+
+Set MariaDB root password if prompted.
+
+## Step 6: Install App on site
+
+```sh
+bench --site etask.local install-app eglobal
+```
+
+## Step 6: Start the Development Server
+
+```sh
+bench start
+```
+
+Access your site at `http://etask.localhost:8000`.
+
+## Conclusion
+
+The Frappe environment is now set up with a basic app. One can begin developing by creating custom DocTypes and modules.
