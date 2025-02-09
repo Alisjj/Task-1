@@ -5,26 +5,40 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "user_name",
-  "task"
+  "title",
+  "description",
+  "status",
+  "due_date"
  ],
  "fields": [
   {
-   "fieldname": "user_name",
+   "fieldname": "title",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "User Name",
+   "label": "title",
    "reqd": 1
   },
   {
-   "fieldname": "task",
-   "fieldtype": "Data",
-   "label": "Task"
+   "fieldname": "description",
+   "fieldtype": "Text",
+   "label": "description"
+  },
+  {
+   "description": "Open\nInprogress\nCompleted",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "status",
+   "options": "Open\nInprogress\nCompleted"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "due date"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-09 08:19:58.150580",
+ "modified": "2025-02-09 12:09:58.297001",
  "modified_by": "Administrator",
  "module": "Eglobal",
  "name": "Task",
@@ -39,6 +53,18 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Guest",
    "share": 1,
    "write": 1
   }

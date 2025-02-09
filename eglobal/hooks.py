@@ -1,9 +1,14 @@
+import frappe
+from frappe import _
+
 app_name = "eglobal"
 app_title = "Eglobal"
 app_publisher = "Aliyu Sani"
 app_description = "Job task"
 app_email = "zainusjj@gmail.com"
 app_license = "mit"
+
+
 
 # Apps
 # ------------------
@@ -20,6 +25,16 @@ app_license = "mit"
 # 		"has_permission": "eglobal.api.permission.has_app_permission"
 # 	}
 # ]
+
+api_methods = [
+    "eglobal.api.tasks.create_task",
+    "eglobal.api.tasks.get_tasks",
+    "eglobal.api.tasks.update_task",
+    "eglobal.api.tasks.delete_task"
+]
+
+for method in api_methods:
+    globals()[method] = frappe.whitelist()(globals().get(method))
 
 # Includes in <head>
 # ------------------
